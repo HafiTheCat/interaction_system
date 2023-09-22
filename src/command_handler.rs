@@ -8,7 +8,7 @@ use crate::{element::Element, game::Game, interaction::Interaction};
 ///
 ///```
 /// //Register the
-/// handle_command("ins hotspot")
+/// handle_command("ins hotspot text2 text3")
 ///```
 ///
 ///[even more advanced explanations if necessary]
@@ -37,12 +37,12 @@ fn perform_interaction(interaction: Interaction) {
 }
 
 /// converts a tupel of (cmd,value) into a respective interaction
-fn get_interaction(raw_interaction: RawInteraction<'_>) -> Option<Interaction> {
+fn get_interaction(raw_interaction: RawInteraction) -> Option<Interaction> {
     let Some(element) = get_element(raw_interaction.value) else {
         return None;
     };
     //retrieve value
-    match raw_interaction.cmd {
+    match raw_interaction.cmd.as_str() {
         "interact" | "int" => Some(Interaction::Interact(element)),
         "inspect" | "ins" => Some(Interaction::Inspect(element)),
         _ => None,
@@ -65,7 +65,7 @@ fn get_element(element: impl Into<String>) -> Option<&'static Element> {
 }
 
 /// seperates the command into a tupel (cmd, value)
-fn seperate_cmd<'a, T>(input: T) -> Option<RawInteraction<'a>>
+fn seperate_cmd<T>(input: T) -> Option<RawInteraction>
 where
     T: Into<String>,
 {
@@ -75,25 +75,25 @@ where
         return None;
     };
     Some(RawInteraction {
-        cmd: cmd.0,
-        value: cmd.1.join(" ").as_str(),
+        cmd: cmd.0.to_owned(),
+        value: cmd.1.join(" "),
     })
 }
 
 /// Takes the first two elements of an iterator and puts them into a tupel
 /// "abc abc abc" => ("abc")
-fn take_first_two_from_iter<T>(it: &mut impl Iterator<Item = T>) -> Option<(T, &[T])> {
+fn take_first_two_from_iter<T>(it: &mut impl Iterator<Item = T>) -> Option<(T, Vec<T>)> {
     let Some(first) = it.next() else {
         //Iterator does not have at least two elements.
         return None;
     };
     let rest = it.collect::<Vec<T>>();
-    Some((first, rest.as_slice()))
+    Some((first, rest))
 }
 
-struct RawInteraction<'a> {
-    cmd: &'a str,
-    value: &'a str,
+struct RawInteraction {
+    cmd: String,
+    value: String,
 }
 
 // #[cfg(test)]

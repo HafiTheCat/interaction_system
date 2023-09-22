@@ -5,16 +5,16 @@ trait TElement: Display {}
 #[derive(Debug)]
 pub enum ElementType {
     InEnvironment,
-    InInventory,
-    Way,
+    // InInventory,
+    // Way,
 }
 // #[allow(unreachable_patterns)]
 impl Display for ElementType {
     fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
         let icon = match self {
             ElementType::InEnvironment => "()",
-            ElementType::InInventory => "[()]",
-            ElementType::Way => "==>",
+            // ElementType::InInventory => "[()]",
+            // ElementType::Way => "==>",
             // _ => unreachable!(),
         };
         write!(f, "{icon}")
@@ -33,6 +33,6 @@ impl TElement for Element {}
 
 impl Display for Element {
     fn fmt(&self, f: &mut Formatter) -> fmt::Result {
-        write!(f, "{}",self.name)
+        write!(f, "{}", self.name)
     }
 }
