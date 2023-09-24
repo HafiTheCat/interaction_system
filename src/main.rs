@@ -1,4 +1,5 @@
 mod actions;
+mod command_handler;
 mod element;
 mod game;
 mod interaction;
@@ -6,15 +7,15 @@ mod item_registry;
 mod scene;
 mod scene_registry;
 mod test;
-mod command_handler;
 use std::io;
 
 use game::Game;
 use once_cell::sync::OnceCell;
 
 use crate::{
+    command_handler::handle_command,
     element::{Element, ElementType},
-    scene::Scene, command_handler::handle_command,
+    scene::Scene,
 };
 // use once_cell::sync::Lazy;
 // use std::{collections::HashMap, sync::Mutex};
@@ -51,7 +52,7 @@ fn init() {
     GAME_INSTANCE.set(Game::new(scene)).unwrap();
 }
 
-fn main() -> io::Result<()>{
+fn main() -> io::Result<()> {
     init();
     let mut input_string = String::new();
 
@@ -68,7 +69,7 @@ fn main() -> io::Result<()>{
 
 /// prints info of the current scene and hotspots
 fn print_scene_info() {
-    let current_scene = &(Game::global().game_state.current_scene);
+    let current_scene = Game::global().get_current_scene();
     println!(
         "====================================================\n\
         \tCurrent Location: {}\n\
@@ -91,7 +92,6 @@ fn print_actions() {
     );
 }
 
-
 // struct Dialogue<'a> {
 //     id: &'a str,
 //     text: &'a str,
@@ -108,4 +108,3 @@ fn print_actions() {
 //         ("test.dialog.2", "THIS IS A TEXT DIALOG"),
 //     ]
 // }
-
