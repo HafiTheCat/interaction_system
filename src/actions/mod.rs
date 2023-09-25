@@ -1,16 +1,23 @@
+use self::sequential::SequentialAction;
+
 mod dialogue;
 mod goto;
 mod hovertext;
 mod inventorychange;
-mod scenechange;
-mod schedule;
-mod sequential;
 mod print;
+mod scenechange;
+mod sequential;
+
 pub trait Action {
     fn execute(&self);
     fn then(self, next: Box<dyn Action>) -> Box<dyn Action>
     where
-        Self: Sized;
+        Self: Sized,
+    {
+        Box::new(SequentialAction {
+            actions: vec![next],
+        })
+    }
 }
 
 // Dialogue::new()
