@@ -1,11 +1,10 @@
 use super::{sequential::SequentialAction, Action};
 
-pub struct Dialogue {
-    text: String,
-}
-impl Action for Dialogue {
+pub struct Print(pub String);
+
+impl Action for Print {
     fn execute(&self) {
-        println!("{}", self.text);
+        println!("{}", self.0);
     }
 
     fn then(self, next: Box<dyn Action>) -> Box<dyn Action>

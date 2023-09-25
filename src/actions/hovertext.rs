@@ -1,5 +1,11 @@
 use super::Action;
 struct HoverText {}
 impl Action for HoverText {
-  const ACTION_ID: &'static str = "action.hovertext";
+  fn execute(&self) {
+    todo!()
+}
+
+fn then(self, next: Box<dyn Action>) -> Box<dyn Action> {
+    todo!()
+}
 }

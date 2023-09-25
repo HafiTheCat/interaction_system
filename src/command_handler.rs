@@ -49,18 +49,6 @@ fn get_interaction(raw_interaction: RawInteraction) -> Option<Interaction> {
     }
 }
 
-// /// retrieves the element if existent
-// fn get_element_by_name(element: impl Into<String>) -> Option<&'static Element> {
-//     let el = element.into();
-//     let current_scene = Game::global()
-//         .get_current_scene()
-//         .hotspots
-//         .iter()
-//         .filter(|value| el.to_lowercase() == value.name.to_lowercase())
-//         .collect::<Vec<&Element>>();
-//     return current_scene.get(0).cloned();
-// }
-
 /// seperates the command into a tupel (cmd, value)
 fn seperate_cmd<T>(input: T) -> Option<RawInteraction>
 where
