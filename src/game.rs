@@ -1,7 +1,3 @@
-// use scene_registry::{SceneRegistry, TSceneRegistry};
-
-// use crate::scene_registry;
-
 use crate::{element::Element, scene::Scene, scene_registry::SceneRegistry, GAME_INSTANCE};
 
 #[derive(Debug, Default)]
@@ -37,9 +33,6 @@ impl Game {
     pub fn get_current_scene(&self) -> &Scene {
         &self.game_state.current_scene
     }
-    // pub fn show_hotspots(self) -> Option<Vec<String>> {
-    //   let current_scene = self.game_state.current_scene;
-    // }
 }
 
 #[derive(Debug, Default)]

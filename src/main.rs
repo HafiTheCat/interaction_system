@@ -3,10 +3,9 @@ mod command_handler;
 mod element;
 mod game;
 mod interaction;
-mod item_registry;
 mod scene;
 mod scene_registry;
-mod test;
+mod graveyard;
 use std::io;
 
 use game::Game;
@@ -17,16 +16,7 @@ use crate::{
     element::{Element, ElementType},
     scene::Scene,
 };
-// use once_cell::sync::Lazy;
-// use std::{collections::HashMap, sync::Mutex};
 
-// static GLOBAL_DATA: Lazy<Mutex<HashMap<String, String>>> = Lazy::new(|| {
-//     let mut m = HashMap::new();
-//     m.insert("init_scene".to_string(), "test".to_string());
-//     m.insert("test_key".to_owned(), "test_res".to_string());
-//     Mutex::new(m)
-// });
-// println!("{:?}", GLOBAL_DATA.lock().unwrap());
 
 static GAME_INSTANCE: OnceCell<Game> = OnceCell::new();
 
@@ -63,7 +53,6 @@ fn main() -> io::Result<()> {
         io::stdin().read_line(&mut input_string).unwrap(); // Get the stdin from the user, and put it in read_string
         handle_command(input_string.trim().to_lowercase().clone());
     }
-    println!("See you later!");
     Ok(())
 }
 
@@ -91,20 +80,3 @@ fn print_actions() {
         Which action would you like to perform?\n",
     );
 }
-
-// struct Dialogue<'a> {
-//     id: &'a str,
-//     text: &'a str,
-// }
-
-// enum Interaction<'a> {
-//     SceneChange(&'a str),
-//     Dialogue(&'a Dialogue<'a>),
-// }
-
-// fn getDialog() -> Vec<(&'static str, &'static str)> {
-//     vec![
-//         ("test.dialog.1", "this is a test dialog"),
-//         ("test.dialog.2", "THIS IS A TEXT DIALOG"),
-//     ]
-// }

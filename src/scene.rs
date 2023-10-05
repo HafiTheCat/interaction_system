@@ -1,5 +1,3 @@
-
-
 use crate::element::Element;
 
 #[derive(Default, Debug)]
@@ -8,9 +6,3 @@ pub struct Scene {
     pub name: &'static str,
     pub hotspots: Vec<Element>,
 }
-
-// impl Display for Scene {
-//   fn fmt(&self, f: &mut Formatter) -> fmt::Result {
-//     write!(f, "{}", self.)
-//   }
-// }

@@ -1,4 +1,7 @@
-use crate::{game::Game, interaction::Interaction};
+use crate::{
+    game::Game,
+    interaction::{Inspectable, Interactable, Interaction},
+};
 
 /// Evaluates a command and performs the resulting interaction
 ///
@@ -33,7 +36,12 @@ fn evaluate_command(input: impl Into<String>) -> Option<Interaction> {
 
 /// performs an interaction
 fn perform_interaction(interaction: Interaction) {
-    println!("Performed Interaction: {interaction:?}");
+    println!("Incoming Interaction: {interaction:?}");
+    let action = match interaction {
+        Interaction::Interact(el) => el.on_interact(),
+        Interaction::Inspect(el) => el.on_inspect(),
+    };
+    action.execute()
 }
 
 /// converts a tupel of (cmd,value) into a respective interaction
@@ -70,7 +78,7 @@ where
 }
 
 /// Takes the first two elements of an iterator and puts them into a tupel
-/// "abc abc abc" => ("abc")
+/// "abc abc abc" => ("abc",["abc","abc"])
 fn take_first_two_from_iter<T>(it: &mut impl Iterator<Item = T>) -> Option<(T, Vec<T>)> {
     let Some(first) = it.next() else {
         //Iterator does not have at least two elements.

@@ -4,7 +4,7 @@ mod dialogue;
 mod goto;
 mod hovertext;
 mod inventorychange;
-mod print;
+pub mod print;
 mod scenechange;
 mod sequential;
 
@@ -20,11 +20,3 @@ pub trait Action {
     }
 }
 
-// Dialogue::new()
-// Goto::new()11
-// HoverText::new()
-// InventoryChange::new()
-// SceneChange::new()
-// Schedule::new()
-
-// Dialogue::new().then(Goto::new())
